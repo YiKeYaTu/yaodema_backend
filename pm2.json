@@ -1,0 +1,16 @@
+{
+  "apps": [{
+    "name": "yaodema_backend",
+    "script": "www/production.js",
+    "cwd": "/Users/lc/我写的一些JS/项目//Users/lc/我写的一些JS/项目/yaodema_backend",
+    "exec_mode": "cluster",
+    "instances": 0,
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}
