@@ -83,7 +83,7 @@ export default class extends think.service.base {
         let accessToken = await cache.get(accessTokenName);
 
         if (!accessToken) {
-            let code = this.getCode();
+            let code = this.getCode(http, redirect_uri);
 
             const GET_ACCESS_TOKEN_URL = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${APPID}&secret=${APPSECRET}&code=${code}&grant_type=authorization_code`;
 
