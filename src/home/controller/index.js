@@ -16,7 +16,7 @@ export default class extends Base {
 
         await wx.getAccessTokenC(
             http, 
-            'http://' + http.host + http.url
+            'http://' + http.host + http.url.slice(0, -1)
         );
 
         return this.display();
