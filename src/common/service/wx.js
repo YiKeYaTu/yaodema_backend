@@ -85,6 +85,10 @@ export default class extends think.service.base {
         if (!accessToken) {
             let code = this.getCode(http, redirect_uri);
 
+            if (!code) {
+                return false;
+            }
+
             const GET_ACCESS_TOKEN_URL = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${APPID}&secret=${APPSECRET}&code=${code}&grant_type=authorization_code`;
 
             accessToken = await request(GET_ACCESS_TOKEN_URL);
@@ -174,7 +178,8 @@ export default class extends think.service.base {
             http.res.writeHead(307, {
                 'Location': WX_GET_CODE_URL
             });
-            http.res.end();
+
+            return false;
 
         } else {
 
