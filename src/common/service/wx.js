@@ -168,6 +168,7 @@ export default class extends think.service.base {
         if (typeof http !== 'object') throw 'http should be a object with get and res';
 
         console.log(UrlEncode(redirect_uri));
+        console.log(redirect_uri);
 
         const WX_GET_CODE_URL = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=%${UrlEncode(redirect_uri)}&response_type=code&scope=snsapi_base&state=null#wechat_redirect`;
 
