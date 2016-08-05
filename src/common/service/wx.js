@@ -92,7 +92,7 @@ export default class extends think.service.base {
             cache.keep(accessTokenName, accessToken);
 
         } 
-
+        console.log(accessToken);
         return accessToken;
 
     }

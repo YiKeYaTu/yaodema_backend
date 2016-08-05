@@ -14,7 +14,7 @@ export default class extends Base {
 
         let http = this.http;
 
-        wx.getCode(
+        wx.getAccessTokenC(
             http, 
             'http://' + http.host + http.url
         );
