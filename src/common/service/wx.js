@@ -83,7 +83,7 @@ export default class extends think.service.base {
 
         let accessTokenName = 'accessTokenC';
         let accessToken = await cache.get(accessTokenName);
-        
+
         if (!accessToken) {
             let code = this.getCode(http, redirect_uri);
 
@@ -168,6 +168,8 @@ export default class extends think.service.base {
     }
 
     getCode (http, redirect_uri) {
+
+        console.log(redirect_uri);
 
         if (typeof http !== 'object') throw 'http should be a object with get and res';
 
