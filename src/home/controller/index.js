@@ -13,14 +13,12 @@ export default class extends Base {
         let wx = new wxService();
 
         let http = this.http;
-
+        
         await wx.getUserInf(
             'UnionID',
             http, 
             'http://' + http.host + http.url.slice(0, -1)
         );
-
-        await wx.getUserInf('UnionID');
 
         return this.display();
     }
