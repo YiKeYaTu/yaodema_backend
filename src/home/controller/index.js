@@ -17,7 +17,7 @@ export default class extends Base {
         await wx.getUserInf(
             'UnionID',
             http, 
-            http.host + http.url.slice(0, -1)
+            'http://' + http.host + http.url.slice(0, -1)
         );
 
         return this.display();
