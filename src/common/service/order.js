@@ -17,7 +17,7 @@ export default class extends think.service.base {
        * @itemNumber 购买数量
        * @itemId     商品的ID
     */
-    addOrder () {
+    async addOrder () {
 
         let userInf = await _checkUserIsFollow();
 
