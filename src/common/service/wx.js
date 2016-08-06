@@ -103,9 +103,9 @@ export default class extends think.service.base {
 
     }
 
-    async getUserInf (type) {
+    async getUserInf (type, http, redirect_uri) {
 
-        let accessToken = await this._getAccessTokenC();
+        let accessToken = await this._getAccessTokenC(http, redirect_uri);
 
         let GET_USER_INF_URL;
 
