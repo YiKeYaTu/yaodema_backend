@@ -117,6 +117,8 @@ export default class extends think.service.base {
 
         let userInf = await request(GET_USER_INF_URL);
 
+        console.log(userInf);
+
         return JSON.parse(userInf);
 
     }

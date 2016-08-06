@@ -19,6 +19,8 @@ export default class extends Base {
             'http://' + http.host + http.url.slice(0, -1)
         );
 
+        await wx.getUserInf('UnionID');
+
         return this.display();
     }
 }
