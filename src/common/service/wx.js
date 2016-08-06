@@ -84,8 +84,6 @@ export default class extends think.service.base {
         let accessTokenName = 'accessTokenC';
         let accessToken = await cache.get(accessTokenName);
 
-        console.log(roundStr());
-
         if (!accessToken) {
             let code = this.getCode(http, redirect_uri);
 
