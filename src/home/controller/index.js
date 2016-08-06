@@ -14,10 +14,12 @@ export default class extends Base {
 
         let http = this.http;
 
-        await wx.getAccessTokenC(
-            http, 
-            'http://' + http.host + http.url.slice(0, -1)
-        );
+        // await wx.getAccessTokenC(
+        //     http, 
+        //     'http://' + http.host + http.url.slice(0, -1)
+        // );
+
+        let openid = '124erwfe3124f';
 
         return this.display();
     }

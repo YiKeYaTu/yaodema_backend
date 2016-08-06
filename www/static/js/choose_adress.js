@@ -1,0 +1,1 @@
+"use strict";!function(){var n=this;$(".normal-adress").tap(function(){$(n).children(".user-icon")})}();

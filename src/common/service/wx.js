@@ -26,7 +26,9 @@ export default class extends think.service.base {
     init (...args) {
         super.init(...args);
     }
-
+/**
+   此token用于全局并非用户组的token
+   */
     async getAccessTokenN () {
 
         let accessTokenName = 'accessTokenN';
@@ -77,10 +79,12 @@ export default class extends think.service.base {
 
     }
 
-    async getAccessTokenC (http, redirect_uri) {
+    async _getAccessTokenC (http, redirect_uri) {
 
         let accessTokenName = 'accessTokenC';
         let accessToken = await cache.get(accessTokenName);
+
+        console.log(roundStr());
 
         if (!accessToken) {
             let code = this.getCode(http, redirect_uri);
@@ -103,7 +107,7 @@ export default class extends think.service.base {
 
     async getUserInf (type) {
 
-        let accessToken = await this.getAccessTokenC();
+        let accessToken = await this._getAccessTokenC();
 
         let GET_USER_INF_URL;
 
@@ -119,7 +123,7 @@ export default class extends think.service.base {
 
     }
 
-    async getJSAPITicket () {
+    async _getJSAPITicket () {
 
         let ticket = cache.get('jsTicket');
 
@@ -142,11 +146,11 @@ export default class extends think.service.base {
 
         let obj = {
             timestamp: new Date().getTime(),
-            nonceStr: 'Wm3WZYTPz0wzccnW',
-            jsapi_ticket: await this.getJSAPITicket(),
+            nonceStr: roundStr(),
+            jsapi_ticket: await this._getJSAPITicket(),
             url: url
         };
-1
+
         let arr = ['timestamp', 'nonceStr', 'jsapi_ticket', 'url'].sort();
         let str = '';
 
@@ -166,9 +170,6 @@ export default class extends think.service.base {
     getCode (http, redirect_uri) {
 
         if (typeof http !== 'object') throw 'http should be a object with get and res';
-
-        console.log(UrlEncode(redirect_uri));
-        console.log(redirect_uri);
 
         const WX_GET_CODE_URL = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=%${UrlEncode(redirect_uri)}&response_type=code&scope=snsapi_base&state=null#wechat_redirect`;
 
@@ -221,3 +222,7 @@ function UrlEncode(str){
 
     return ret; 
 } 
+
+function roundStr () {
+    return sha1(Math.round()).slice(0, 32);
+}
