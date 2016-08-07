@@ -2,7 +2,6 @@
 
 import request from 'request-promise';
 import sha1 from 'sha1';
-import crypto from 'crypto';
 
 const APPID = 'wxed1c9924e6340f5e',
     APPSECRET = '656f2fc1a74d07cb44b9604608d759ba';
@@ -148,7 +147,7 @@ export default class extends think.service.base {
         if (!/^https?:\/\//.test(url)) url = 'http://' + url;
 
         let obj = {
-            timestamp: new Date().getTime(),
+            timestamp: Math.floor(new Date().getTime()).toString(),
             noncestr: roundStr(),
             jsapi_ticket: await this._getJSAPITicket(),
             url: url
@@ -163,10 +162,8 @@ export default class extends think.service.base {
 
         });
         console.log(str.slice(0, -1));
-        console.log('....' + hash(str.slice(0, -1), 'sha1'));
-        console.log('....' + sha1(str.slice(0, -1)));
 
-        obj.signature = hash(str.slice(0, -1), 'sha1');
+        obj.signature = sha1(str.slice(0, -1));
         obj.appId = APPID;
 
         return obj;
