@@ -14,11 +14,11 @@ export default class extends Base {
 
         let http = this.http;
 
-        await wx.getUserInf(
-            '',
-            http, 
-            'http://' + http.host + http.url.slice(0, -1)
-        );
+        // await wx.getUserInf(
+        //     '',
+        //     http, 
+        //     'http://' + http.host + http.url.slice(0, -1)
+        // );
 
         await wx.createMenu();
 

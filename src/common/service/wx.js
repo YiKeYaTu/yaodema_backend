@@ -77,6 +77,8 @@ export default class extends think.service.base {
             body: menuJson
         });
 
+        console.log(res);
+
     }
 
     async _getAccessTokenC (http, redirect_uri) {
