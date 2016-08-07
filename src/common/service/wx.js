@@ -146,12 +146,12 @@ export default class extends think.service.base {
 
         let obj = {
             timestamp: new Date().getTime(),
-            nonceStr: roundStr(),
+            noncestr: roundStr(),
             jsapi_ticket: await this._getJSAPITicket(),
             url: url
         };
 
-        let arr = ['timestamp', 'nonceStr', 'jsapi_ticket', 'url'].sort();
+        let arr = ['timestamp', 'noncestr', 'jsapi_ticket', 'url'].sort();
         let str = '';
 
         arr.forEach((item) => {
