@@ -56,7 +56,7 @@ export default class extends think.service.base {
             button: [{
                 type: 'view',
                 name: '特产礼包',
-                url: 'http://www.duwonders.cn',                
+                url: 'www.hangeer1996.com',                
             }, {
                 type: 'view',
                 name: '特产商城',
