@@ -96,7 +96,7 @@ export default class extends think.service.base {
             // cache.keep(accessTokenName, accessToken);
 
         // } 
-        return accessToken;
+        return JSON.parse(accessToken);
 
     }
 
