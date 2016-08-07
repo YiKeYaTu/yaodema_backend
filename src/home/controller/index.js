@@ -14,12 +14,14 @@ export default class extends Base {
 
         let http = this.http;
 
+        let openid = 'oDNUjwV7l6KYEaEaBlWWSSn4Nel4';
+
         await wx.getUserInf(
-            'UnionID',
+            '',
             http, 
             'http://' + http.host + http.url.slice(0, -1)
         );
-        
+
         return this.display();
     }
 }
