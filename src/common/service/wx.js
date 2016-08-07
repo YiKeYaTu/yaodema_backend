@@ -98,7 +98,6 @@ export default class extends think.service.base {
             cache.keep(accessTokenName, accessToken);
 
         } 
-        console.log(accessToken);
         return accessToken;
 
     }
@@ -106,6 +105,7 @@ export default class extends think.service.base {
     async getUserInf (type, http, redirect_uri) {
 
         let accessToken = await this._getAccessTokenC(http, redirect_uri);
+        console.log(accessToken);
 
         let GET_USER_INF_URL;
 
