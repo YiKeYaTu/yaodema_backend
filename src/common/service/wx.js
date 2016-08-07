@@ -163,6 +163,8 @@ export default class extends think.service.base {
 
         });
         console.log(str.slice(0, -1));
+        console.log('....' + hash(str.slice(0, -1), 'sha1'));
+        console.log('....' + sha1(str.slice(0, -1)));
 
         obj.signature = hash(str.slice(0, -1), 'sha1');
         obj.appId = APPID;
@@ -253,7 +255,7 @@ function UrlEncode(str){
 } 
 
 function roundStr () {
-    return sha1(Math.round()).slice(0, 31);
+    return sha1(Math.random()).slice(0, 31);
 }
 
 function hash (str, type) {
