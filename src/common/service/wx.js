@@ -210,6 +210,8 @@ export default class extends think.service.base {
         let nonceStr = http.cookie(COOKIE_TOKEN);
         let accessToken = await cache.get(nonceStr);
 
+        console.log(accessToken);
+
         return JSON.stringify(accessToken);
 
     }
