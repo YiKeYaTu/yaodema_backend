@@ -114,7 +114,7 @@ export default class extends think.service.base {
         } else {
             GET_USER_INF_URL = `https://api.weixin.qq.com/sns/userinfo?access_token=${accessToken.access_token}&openid=${accessToken.openid}&lang=zh_CN`;
         }
-        console.long(GET_USER_INF_URL);
+        console.log(GET_USER_INF_URL);
 
         let userInf = await request(GET_USER_INF_URL);
 
