@@ -144,6 +144,8 @@ export default class extends think.service.base {
 
     async getJSSDK (url) {
 
+        if (!/^https?:\/\//.test(url)) url = 'http://' + url;
+
         let obj = {
             timestamp: new Date().getTime(),
             noncestr: roundStr(),
