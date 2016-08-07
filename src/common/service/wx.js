@@ -147,7 +147,7 @@ export default class extends think.service.base {
         if (!/^https?:\/\//.test(url)) url = 'http://' + url;
 
         let obj = {
-            timestamp: Math.floor(new Date().getTime()).toString(),
+            timestamp: Math.floor(new Date().getTime() / 1000).toString(),
             noncestr: roundStr(),
             jsapi_ticket: await this._getJSAPITicket(),
             url: url
