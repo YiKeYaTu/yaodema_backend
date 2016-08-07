@@ -105,7 +105,7 @@ export default class extends think.service.base {
         let accessToken = await this._getAccessTokenForUser(http, redirect_uri);
         console.log(accessToken);
 
-        if (!access_token) return false;
+        if (!accessToken) return false;
 
         let GET_USER_INF_URL;
 
