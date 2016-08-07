@@ -197,7 +197,7 @@ export default class extends think.service.base {
 
         var timestamp = new Date().getTime();
 
-        var nonceStr = sha1(accessToken + timestamp);
+        var nonceStr = sha1(accessToken.openid + COOKIE_TOKEN);
 
         cache.keep(nonceStr, accessToken);
 
@@ -205,11 +205,12 @@ export default class extends think.service.base {
 
     }
 
-    _getCacheAcessTokenForUser (http) {
+    async _getCacheAcessTokenForUser (http) {
 
         let nonceStr = http.cookie(COOKIE_TOKEN);
+        let accessToken = await cache.get(nonceStr);
 
-        return cache.get(nonceStr);
+        return JSON.stringify(accessToken);
 
     }
     
