@@ -77,16 +77,14 @@ export default class extends think.service.base {
             body: menuJson
         });
 
-        console.log(res);
-
     }
 
-    async _getAccessTokenC (http, redirect_uri) {
+    async _getAccessTokenForUser (http, redirect_uri) {
 
         let accessTokenName = 'accessTokenC';
-        let accessToken = await cache.get(accessTokenName);
+        // let accessToken = await cache.get(accessTokenName);
 
-        if (!accessToken) {
+        // if (!accessToken) {
             let code = this.getCode(http, redirect_uri);
 
             if (!code) {
@@ -95,18 +93,18 @@ export default class extends think.service.base {
 
             const GET_ACCESS_TOKEN_URL = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${APPID}&secret=${APPSECRET}&code=${code}&grant_type=authorization_code`;
 
-            accessToken = await request(GET_ACCESS_TOKEN_URL);
+            // accessToken = await request(GET_ACCESS_TOKEN_URL);
 
-            cache.keep(accessTokenName, accessToken);
+            // cache.keep(accessTokenName, accessToken);
 
-        } 
+        // } 
         return accessToken;
 
     }
 
     async getUserInf (type, http, redirect_uri) {
 
-        let accessToken = await this._getAccessTokenC(http, redirect_uri);
+        let accessToken = await this._getAccessTokenForUser(http, redirect_uri);
         console.log(accessToken);
 
         let GET_USER_INF_URL;
