@@ -138,6 +138,8 @@ export default class extends think.service.base {
 
         cache.keep('jsTicket', ticket);
 
+        console.log(ticket);
+
         return ticket;
 
     }
