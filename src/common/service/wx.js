@@ -84,6 +84,8 @@ export default class extends think.service.base {
         let accessToken = await this._getCacheAcessTokenForUser(http);
 
         if (!accessToken) {
+
+            console.log('未得到缓存token');
             let code = this.getCode(http, redirect_uri);
 
             if (!code) return false;
