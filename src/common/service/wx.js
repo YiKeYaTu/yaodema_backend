@@ -6,11 +6,11 @@ import sha1 from 'sha1';
 const APPID = 'wxed1c9924e6340f5e',
     APPSECRET = '656f2fc1a74d07cb44b9604608d759ba';
 
+const COOKIE_TOKEN = 'gt';
+
 let cache = {
-    keep: async function (name, json) {
-        think.cache(name, () => {
-            return json;
-        });
+    keep: function (name, json) {
+        think.cache(name, json);
     },
     get: async function (name) {
         let cacheJson = await think.cache(name);
@@ -81,26 +81,25 @@ export default class extends think.service.base {
 
     async _getAccessTokenForUser (http, redirect_uri) {
 
-        let accessTokenName = 'accessTokenC';
-        // let accessToken = await cache.get(accessTokenName);
+        let accessToken = await this._getCacheAcessTokenForUser(http);
 
-        // if (!accessToken) {
+        if (!accessToken) {
             let code = this.getCode(http, redirect_uri);
 
             if (!code) return false;
 
             const GET_ACCESS_TOKEN_URL = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${APPID}&secret=${APPSECRET}&code=${code}&grant_type=authorization_code`;
 
-            let accessToken = await request(GET_ACCESS_TOKEN_URL);
+            accessToken = await request(GET_ACCESS_TOKEN_URL);
 
-            // cache.keep(accessTokenName, accessToken);
+            this._cacheAcessTokenForUser(http, accessToken);
 
-        // } 
+        } 
         return JSON.parse(accessToken);
 
     }
 
-    async getUserInf (type, http, redirect_uri) {
+    async getUserInf (isUnionID, http, redirect_uri) {
 
         let accessToken = await this._getAccessTokenForUser(http, redirect_uri);
 
@@ -108,7 +107,7 @@ export default class extends think.service.base {
 
         let GET_USER_INF_URL;
 
-        if (type === 'UnionID') {
+        if (isUnionID) {
             GET_USER_INF_URL = `https://api.weixin.qq.com/cgi-bin/user/info?access_token=${accessToken.access_token}&openid=${accessToken.openid}&lang=zh_CN`;
         } else {
             GET_USER_INF_URL = `https://api.weixin.qq.com/sns/userinfo?access_token=${accessToken.access_token}&openid=${accessToken.openid}&lang=zh_CN`;
@@ -170,6 +169,8 @@ export default class extends think.service.base {
 
         if (typeof http !== 'object') throw 'http should be a object with get and res';
 
+        if (!/^https?:\/\//.test(redirect_uri)) redirect_uri = 'http://' + redirect_uri;
+
         const WX_GET_CODE_URL = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${UrlEncode(redirect_uri)}&response_type=code&scope=snsapi_userinfo&state=null#wechat_redirect`;
 
         let code = http.get('code');
@@ -187,6 +188,26 @@ export default class extends think.service.base {
             return code;
 
         }
+
+    }
+
+    _cacheAcessTokenForUser (http, accessToken) {
+
+        var timestamp = new Date().getTime();
+
+        var nonceStr = sha1(accessToken + timestamp);
+
+        cache.keep(nonceStr, accessToken);
+
+        http.cookie(COOKIE_TOKEN, nonceStr);
+
+    }
+
+    _getCacheAcessTokenForUser (http) {
+
+        let nonceStr = http.cookie(COOKIE_TOKEN);
+
+        return cache.get(nonceStr);
 
     }
     
