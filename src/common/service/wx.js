@@ -110,9 +110,9 @@ export default class extends think.service.base {
         let GET_USER_INF_URL;
 
         if (type === 'UnionID') {
-            GET_USER_INF_URL = `https://api.weixin.qq.com/sns/userinfo?access_token=${accessToken.access_token}&openid=${accessToken.openid}&lang=zh_CN`;
-        } else {
             GET_USER_INF_URL = `https://api.weixin.qq.com/cgi-bin/user/info?access_token=${accessToken.access_token}&openid=${accessToken.openid}&lang=zh_CN`;
+        } else {
+            GET_USER_INF_URL = `https://api.weixin.qq.com/sns/userinfo?access_token=${accessToken.access_token}&openid=${accessToken.openid}&lang=zh_CN`;
         }
 
         let userInf = await request(GET_USER_INF_URL);
