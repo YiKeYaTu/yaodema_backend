@@ -93,7 +93,7 @@ export default class extends think.service.base {
 
             const GET_ACCESS_TOKEN_URL = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${APPID}&secret=${APPSECRET}&code=${code}&grant_type=authorization_code`;
 
-            accessToken = await request(GET_ACCESS_TOKEN_URL);
+            let accessToken = await request(GET_ACCESS_TOKEN_URL);
 
             // cache.keep(accessTokenName, accessToken);
 
