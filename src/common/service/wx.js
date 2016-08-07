@@ -2,6 +2,7 @@
 
 import request from 'request-promise';
 import sha1 from 'sha1';
+import crypto from 'crypto';
 
 const APPID = 'wxed1c9924e6340f5e',
     APPSECRET = '656f2fc1a74d07cb44b9604608d759ba';
@@ -163,7 +164,7 @@ export default class extends think.service.base {
         });
         console.log(str.slice(0, -1));
 
-        obj.signature = sha1(str.slice(0, -1));
+        obj.signature = hash(str.slice(0, -1), 'sha1');
         obj.appId = APPID;
 
         return obj;
@@ -252,5 +253,11 @@ function UrlEncode(str){
 } 
 
 function roundStr () {
-    return sha1(Math.round()).slice(0, 32);
+    return sha1(Math.round()).slice(0, 31);
+}
+
+function hash (str, type) {
+    let hashObj = crypto.createHash(type);
+    hashObj.update(str);
+    return hashObj.digest('hex');
 }
