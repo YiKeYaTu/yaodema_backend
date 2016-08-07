@@ -125,7 +125,7 @@ export default class extends think.service.base {
 
     async _getJSAPITicket () {
 
-        let ticket = cache.get('jsTicket');
+        let ticket = await cache.get('jsTicket');
 
         if (ticket) return ticket;
 
@@ -137,8 +137,6 @@ export default class extends think.service.base {
         ticket = JSON.parse(ticket).ticket;
 
         cache.keep('jsTicket', ticket);
-
-        console.log(ticket);
 
         return ticket;
 
