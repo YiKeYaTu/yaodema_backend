@@ -28,8 +28,9 @@ export default class extends Base {
             http.host + http.url.slice(0, -1)
         );
 
-        let js = await wx.getJSSDK(http.host + http.url.slice(0, -1));
+        let jsTicket = await wx.getJSSDK(http.host + http.url.slice(0, -1));
         console.log(js);
+        this.assign('jsTicket', jsTicket);
 
         // await wx._getAccessTokenForUser(http);
 
